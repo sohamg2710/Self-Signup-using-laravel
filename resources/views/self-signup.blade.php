@@ -41,7 +41,7 @@
 
                 <!-- Button -->
                 <div class="mt-10">
-                    <a href="#"
+                    <a href="/verify-mobile"
                        class="inline-flex items-center gap-2 px-6 py-3 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">
                         Start my application
                         <span class="text-xl">➜</span>

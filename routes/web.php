@@ -8,4 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('/self-signup', [UserController::class,'selfSignup']);
-
+Route::get('/verify-mobile',[UserController::class,'verifyMobile']);

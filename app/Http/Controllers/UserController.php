@@ -12,5 +12,7 @@ class UserController extends Controller
         return view('self-signup');
     }
 
-   
+   function verifyMobile(request $request) {
+        return view ('verify-mobile');
+   }
 }
