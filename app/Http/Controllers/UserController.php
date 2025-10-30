@@ -31,4 +31,8 @@ class UserController extends Controller
    function contactAndEmploymentDetails(request $request) {
     return view ('contact-and-employment-details');
    }
+
+   function uploadYourDocuments(request $request) {
+    return view ('upload-your-documents');
+   }
 }
