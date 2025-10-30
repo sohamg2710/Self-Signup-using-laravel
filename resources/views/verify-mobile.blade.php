@@ -39,13 +39,14 @@
 
                 <!-- Button -->
                 <div class="mt-6">
-                    <button
+                    <a href="/verify-otp"
                         class="inline-flex items-center gap-2 px-6 py-3 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">
                         Send OTP
                         <span class="text-xl">➜</span>
-                    </button>
+                    </a>
                 </div>
             </div>
+            
 
             <!-- Right Image -->
             <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">

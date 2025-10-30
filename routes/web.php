@@ -9,3 +9,5 @@ Route::get('/', function () {
 
 Route::get('/self-signup', [UserController::class,'selfSignup']);
 Route::get('/verify-mobile',[UserController::class,'verifyMobile']);
+Route::get('/verify-otp',[UserController::class,'verifyOtp']);
+Route::get('/tell-us-about-yourself', [UserController::class,'tellUsAboutYourself']);
