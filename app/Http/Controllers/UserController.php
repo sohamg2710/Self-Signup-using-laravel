@@ -35,4 +35,8 @@ class UserController extends Controller
    function uploadYourDocuments(request $request) {
     return view ('upload-your-documents');
    }
+
+   function signupSuccess(request $request) {
+    return view ('signup-success');
+   }
 }

@@ -14,3 +14,4 @@ Route::get('/tell-us-about-yourself', [UserController::class,'tellUsAboutYoursel
 Route::get('/where-do-you-live',[UserController::class,'whereDoYouLive']);
 Route::get('/contact-and-employment-details',[UserController::class,'contactAndEmploymentDetails']);
 Route::get('/upload-your-documents', [UserController::class,'uploadYourDocuments']);
+Route::get('/signup-success',[UserController::class,'signupSuccess']);
