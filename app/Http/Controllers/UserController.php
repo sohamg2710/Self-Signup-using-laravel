@@ -23,4 +23,12 @@ class UserController extends Controller
    function tellUsAboutYourself(request $request) {
     return view ('tell-us-about-yourself');
    }
+
+   function whereDoYouLive(request $request) {
+    return view ('where-do-you-live');
+   }
+
+   function contactAndEmploymentDetails(request $request) {
+    return view ('contact-and-employment-details');
+   }
 }

@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="pt-4">
-                        <a href="#"
+                        <a href="/where-do-you-live" 
                            class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">
                             Next
                             <span class="text-lg">➜</span>
