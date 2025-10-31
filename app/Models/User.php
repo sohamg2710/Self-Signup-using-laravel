@@ -10,39 +10,52 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    // use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    // /**
+    //  * The attributes that are mass assignable.
+    //  *
+    //  * @var list<string>
+    //  */
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
+
+    // /**
+    //  * The attributes that should be hidden for serialization.
+    //  *
+    //  * @var list<string>
+    //  */
+    // protected $hidden = [
+    //     'password',
+    //     'remember_token',
+    // ];
+
+    // /**
+    //  * Get the attributes that should be cast.
+    //  *
+    //  * @return array<string, string>
+    //  */
+    // protected function casts(): array
+    // {
+    //     return [
+    //         'email_verified_at' => 'datetime',
+    //         'password' => 'hashed',
+    //     ];
+    // }
+
+    use Notifiable;
+
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'first_name','last_name','mobile','date_of_birth','gender','id_type',
+        'id_number','country_of_issue','email','employer','street','suburb',
+        'city','postal_code','province','is_verified'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function documents()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Document::class);
     }
 }

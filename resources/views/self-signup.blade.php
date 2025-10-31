@@ -54,7 +54,7 @@
                     <a href="https://imb.datafree.co/legal/" target="_blank"
                        class="text-blue-600 underline hover:text-blue-800">
                         terms and conditions
-                    </a>.
+                    </a>
                 </p>
             </div>
 

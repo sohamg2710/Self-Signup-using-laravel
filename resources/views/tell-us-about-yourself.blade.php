@@ -20,7 +20,7 @@
             <div class="flex items-center space-x-2">
                 <div class="w-3 h-3 bg-blue-700 rounded-full"></div>
                 <div class="w-3 h-3 bg-blue-700 rounded-full"></div>
-                <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
+                <div class="w-3 h-3 bg-blue-700 rounded-full"></div> <!-- ✅ Updated current step -->
                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
             </div>
@@ -33,52 +33,73 @@
             <div class="md:w-1/2 space-y-4">
                 <h2 class="text-lg font-semibold">Tell Us About You</h2>
 
-                <form class="space-y-4">
+                <!-- ✅ Changed form: added POST + route -->
+                <form method="POST" action="/where-do-you-live" class="space-y-4">
+                    @csrf
+
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">First name</label>
-                        <input type="text" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700" placeholder="Lorem ipsum">
+                        <input type="text" name="first_name" required
+                               class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700"
+                               placeholder="Lorem ipsum">
                     </div>
+
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Last name</label>
-                        <input type="text" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700" placeholder="Lorem ipsum">
+                        <input type="text" name="last_name" required
+                               class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700"
+                               placeholder="Lorem ipsum">
                     </div>
+
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Date of birth</label>
-                        <input type="date" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                        <input type="date" name="dob" required
+                               class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
                     </div>
+
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Gender</label>
-                        <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                        <select name="gender" required
+                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
                             <option value="">Select</option>
                             <option>Male</option>
                             <option>Female</option>
                             <option>Other</option>
                         </select>
                     </div>
+
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">ID Type</label>
-                        <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                        <select name="id_type" required
+                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
                             <option value="">Select</option>
                             <option>SA ID</option>
                             <option>Passport</option>
                             <option>Asylum/Refugee Document</option>
                         </select>
                     </div>
+
                     <div>
-                        <label class="block text-gray-700 font-medium mb-1">ID / Passport / Asylum document number</label>
-                        <input type="text" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700" placeholder="Lorem ipsum">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 font-medium mb-1">Country of issue</label>
-                        <input type="text" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700" placeholder="Lorem ipsum">
+                        <label class="block text-gray-700 font-medium mb-1">Document Number</label>
+                        <input type="text" name="id_number" required
+                               class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700"
+                               placeholder="Lorem ipsum">
                     </div>
 
+                    <div>
+                        <label class="block text-gray-700 font-medium mb-1">Country of issue</label>
+                        <input type="text" name="country_of_issue" required
+                               class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700"
+                               placeholder="Lorem ipsum">
+                    </div>
+
+                    <!-- ✅ Changed Next link to a real submit button -->
                     <div class="pt-4">
-                        <a href="/where-do-you-live" 
-                           class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">
+                        <button type="submit"
+                                class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">
                             Next
                             <span class="text-lg">➜</span>
-                        </a>
+                        </button>
                     </div>
                 </form>
             </div>
