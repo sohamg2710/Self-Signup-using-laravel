@@ -33,7 +33,7 @@
                 <h2 class="text-lg font-semibold mb-6">Where Do You Live?</h2>
 
                 <!-- ✅ CHANGED: Added POST + route + CSRF -->
-                <form method="POST" action="/contact-and-employment-details" class="space-y-4">
+                <form method="POST" action="/where-do-you-live" class="space-y-4">
                     @csrf
 
                     <div>

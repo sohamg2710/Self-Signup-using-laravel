@@ -9,23 +9,21 @@ use App\Models\MobileVerification;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
-use Twilio\Rest\Client;
 
 class SignupController extends Controller
 {
-    // Send OTP (POST)
+    // Send OTP
     public function sendOtp(Request $request)
     {
         $data = $request->validate([
-            'mobile' => ['required', 'string', 'max:50'] // adjust regex later if needed
+            'mobile' => ['required', 'string', 'max:50']
         ]);
 
         $mobile = $data['mobile'];
 
-        // Throttle: allow one OTP per 60 seconds
         $last = MobileVerification::where('mobile', $mobile)->orderBy('created_at', 'desc')->first();
         if ($last && $last->created_at->diffInSeconds(now()) < 60) {
-            return back()->withErrors(['mobile' => 'Please wait a moment before requesting another OTP.']);
+            return back()->withErrors(['mobile' => 'Please wait before requesting another OTP.']);
         }
 
         $otp = random_int(100000, 999999);
@@ -33,75 +31,47 @@ class SignupController extends Controller
 
         MobileVerification::create([
             'mobile' => $mobile,
-            'otp' => (string)$otp,
+            'otp' => (string) $otp,
             'expires_at' => $expires,
             'used' => false
         ]);
 
-        // Store mobile in session for the flow
         session(['signup_mobile' => $mobile]);
 
-        // ✅ OPTIONAL: Send SMS via Twilio
-        try {
-            $twilio = new Client(env('TWILIO_SID'), env('TWILIO_TOKEN'));
-            $twilio->messages->create(
-                $mobile,
-                [
-                    'from' => env('TWILIO_FROM'),
-                    'body' => "Your IMB OTP is: {$otp}"
-                ]
-            );
-        } catch (\Exception $e) {
-            \Log::error("Twilio SMS failed: " . $e->getMessage());
-            // Still proceed (for testing environments)
-        }
-
-        // Log OTP for local testing
+        // Log OTP for now (later integrate SMS)
         \Log::info("OTP for {$mobile}: {$otp}");
 
         return redirect('/verify-otp')->with('status', 'OTP sent to ' . $mobile);
     }
 
-    // Verify OTP (POST)
+    // Verify OTP
     public function verifyOtp(Request $request)
     {
-        $data = $request->validate([
-            'otp' => 'required|digits:6'
-        ]);
+        $data = $request->validate(['otp' => 'required|digits:6']);
 
         $mobile = session('signup_mobile');
-        if (!$mobile) return redirect('/verify-mobile')->withErrors('Start by entering your mobile number.');
+        if (!$mobile) return redirect('/verify-mobile')->withErrors('Session expired.');
 
         $record = MobileVerification::where('mobile', $mobile)->where('used', false)
             ->orderBy('created_at', 'desc')->first();
 
-        if (!$record) {
-            return back()->withErrors(['otp' => 'No OTP found. Request a new one.']);
-        }
+        if (!$record) return back()->withErrors(['otp' => 'No OTP found. Request a new one.']);
+        if (now()->greaterThan($record->expires_at)) return back()->withErrors(['otp' => 'OTP expired.']);
+        if ($record->otp !== $data['otp']) return back()->withErrors(['otp' => 'Invalid OTP.']);
 
-        if (now()->greaterThan($record->expires_at)) {
-            return back()->withErrors(['otp' => 'OTP expired. Request a new one.']);
-        }
+        $record->update(['used' => true]);
 
-        if ($record->otp !== $data['otp']) {
-            return back()->withErrors(['otp' => 'Invalid OTP.']);
-        }
-
-        $record->used = true;
-        $record->save();
-
-        // Create or get user by mobile
-        $user = User::firstOrCreate(['mobile' => $mobile], ['is_verified' => false]);
+        $user = User::firstOrCreate(['mobile' => $mobile]);
         session(['signup_user_id' => $user->id]);
 
         return redirect('/tell-us-about-yourself');
     }
 
-    // Save personal details (POST)
+    // Save personal details
     public function savePersonal(Request $request)
     {
         $userId = session('signup_user_id');
-        if (!$userId) return redirect('/verify-mobile')->withErrors('Session expired. Start again.');
+        if (!$userId) return redirect('/verify-mobile')->withErrors('Session expired.');
 
         $data = $request->validate([
             'first_name' => 'required|string|max:100',
@@ -110,16 +80,14 @@ class SignupController extends Controller
             'gender' => ['nullable', Rule::in(['Male', 'Female', 'Other'])],
             'id_type' => ['nullable', Rule::in(['SA ID', 'Passport', 'Asylum/Refugee Document'])],
             'id_number' => 'nullable|string|max:255',
-            'country_of_issue' => 'nullable|string|max:255',
+            'country_of_issue' => 'nullable|string|max:255'
         ]);
 
-        $user = User::findOrFail($userId);
-        $user->update($data);
-
+        User::where('id', $userId)->update($data);
         return redirect('/where-do-you-live');
     }
 
-    // Save address (POST)
+    // Save address
     public function saveAddress(Request $request)
     {
         $userId = session('signup_user_id');
@@ -130,16 +98,14 @@ class SignupController extends Controller
             'suburb' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
             'postal_code' => 'nullable|string|max:20',
-            'province' => 'nullable|string|max:100',
+            'province' => 'nullable|string|max:100'
         ]);
 
-        $user = User::findOrFail($userId);
-        $user->update($data);
-
+        User::where('id', $userId)->update($data);
         return redirect('/contact-and-employment-details');
     }
 
-    // Save contact & employment (POST)
+    // Save contact and employment
     public function saveContact(Request $request)
     {
         $userId = session('signup_user_id');
@@ -150,13 +116,11 @@ class SignupController extends Controller
             'employer' => 'required|string|max:255'
         ]);
 
-        $user = User::findOrFail($userId);
-        $user->update($data);
-
+        User::where('id', $userId)->update($data);
         return redirect('/upload-your-documents');
     }
 
-    // Upload documents (POST)
+    // Upload documents
     public function uploadDocs(Request $request)
     {
         $userId = session('signup_user_id');
@@ -168,8 +132,6 @@ class SignupController extends Controller
             'id_image' => 'nullable|file|mimes:jpg,jpeg,png|max:5120',
             'proof_of_address' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
             'work_permit' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'work_permit_issue_date' => 'nullable|date',
-            'work_permit_expiry_date' => 'nullable|date|after_or_equal:work_permit_issue_date'
         ]);
 
         $files = [
@@ -182,6 +144,7 @@ class SignupController extends Controller
             if ($request->hasFile($input)) {
                 $file = $request->file($input);
                 $path = $file->store("user_documents/{$user->id}", 'public');
+
                 Document::create([
                     'user_id' => $user->id,
                     'type' => $type,
@@ -190,10 +153,7 @@ class SignupController extends Controller
             }
         }
 
-        $user->is_verified = true;
-        $user->save();
-
-        // Clear session
+        $user->update(['is_verified' => true]);
         session()->forget(['signup_user_id', 'signup_mobile']);
 
         return redirect('/signup-success');

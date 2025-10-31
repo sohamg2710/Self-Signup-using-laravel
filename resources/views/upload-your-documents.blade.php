@@ -28,7 +28,7 @@
                 <h2 class="text-lg font-semibold mb-6">Upload Your Documents</h2>
 
                 <!-- ✅ Added method, action, enctype -->
-                <form method="POST" action="{{ route('signup.uploadDocuments') }}" enctype="multipart/form-data" class="space-y-5">
+                <form method="POST" action="/upload-your-documents" enctype="multipart/form-data" class="space-y-5">
                     @csrf
 
                     <!-- ID Upload -->

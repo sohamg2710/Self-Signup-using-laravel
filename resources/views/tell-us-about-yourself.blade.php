@@ -34,7 +34,7 @@
                 <h2 class="text-lg font-semibold">Tell Us About You</h2>
 
                 <!-- ✅ Changed form: added POST + route -->
-                <form method="POST" action="/where-do-you-live" class="space-y-4">
+                <form method="POST" action="/tell-us-about-yourself" class="space-y-4">
                     @csrf
 
                     <div>

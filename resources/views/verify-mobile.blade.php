@@ -31,7 +31,7 @@
                 <h2 class="text-2xl font-bold">Verify Your Mobile Number</h2>
 
                 <!-- 🔹 CHANGED: form action and POST -->
-                <form method="POST" action="/verify-otp"> 
+                <form method="POST" action="/verify-mobile"> 
                     @csrf
 
                     <!-- 🔹 CHANGED: added name="mobile" so Laravel can get it -->

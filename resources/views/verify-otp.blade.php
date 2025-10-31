@@ -34,7 +34,7 @@
                 <h2 class="text-2xl font-bold">Enter Your OTP</h2>
 
                 <!-- ✅ FORM UPDATED -->
-                <form method="POST" action="/tell-us-about-yourself" class="space-y-5 max-w-sm mx-auto md:mx-0">
+                <form method="POST" action="/verify-otp" class="space-y-5 max-w-sm mx-auto md:mx-0">
                     @csrf <!-- ✅ Required for Laravel form submission -->
 
                     <div class="flex flex-col items-center md:items-start">

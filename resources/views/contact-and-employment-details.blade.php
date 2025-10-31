@@ -32,7 +32,7 @@
                 <h2 class="text-lg font-semibold mb-6">Contact & Employment Details</h2>
 
                 <!-- ✅ CHANGED: Added form with POST + route -->
-                <form method="POST" action="/upload-your-documents" class="space-y-4">
+                <form method="POST" action="/contact-and-employment-details" class="space-y-4">
                     @csrf
 
                     <div>
