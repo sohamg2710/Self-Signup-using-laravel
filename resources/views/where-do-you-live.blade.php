@@ -40,24 +40,36 @@
                         <label class="block text-gray-700 font-medium mb-1">Street Name and Number</label>
                         <input type="text" name="street" required placeholder="Lorem ipsum"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                                @error('street')
+        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                                 @enderror
                     </div>
 
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Suburb</label>
                         <input type="text" name="suburb" required placeholder="Lorem ipsum"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                                @error('suburb')
+        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+    @enderror
                     </div>
 
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">City</label>
                         <input type="text" name="city" required placeholder="Lorem ipsum"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                                @error('city')
+        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+    @enderror
                     </div>
 
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Postal Code</label>
                         <input type="text" name="postal_code" maxlength="6" required placeholder="0000"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                               @error('postal_code')
+                               <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                               @enderror
                     </div>
 
                     <div>
@@ -75,6 +87,9 @@
                             <option>North West</option>
                             <option>Northern Cape</option>
                         </select>
+                        @error('province')
+                        <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                        @enderror
                     </div>
 
                     <!-- ✅ CHANGED: Submit button instead of link -->

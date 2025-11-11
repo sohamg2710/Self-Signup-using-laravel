@@ -39,12 +39,18 @@
                         <label class="block text-gray-700 font-medium mb-1">Email Address (optional)</label>
                         <input type="email" name="email" placeholder="you@example.com"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                               @error('email')
+                               <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                               @enderror
                     </div>
 
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Employer (required)</label>
                         <input type="text" name="employer" required placeholder="Company Name"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                               @error('employer')
+                               <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                               @enderror
                     </div>
 
                     <!-- ✅ Button changed to submit -->

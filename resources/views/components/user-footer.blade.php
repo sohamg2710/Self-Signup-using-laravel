@@ -13,7 +13,7 @@
         Our vision is to drive financial inclusion for all. Our mission is to open doors to new opportunities through the provision of disruptive and innovative financial products and solutions. We leverage technology to build convenience and simplicity.
       </p>
     </div>
-
+ 
     <!-- Middle section: Products -->
     <div class="flex flex-col gap-4">
       <h3 class="text-lg font-semibold text-gray-800 border-b-4 border-blue-600 w-fit pb-1">Products</h3>

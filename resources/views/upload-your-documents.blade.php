@@ -27,7 +27,7 @@
             <div class="md:w-1/2 space-y-5">
                 <h2 class="text-lg font-semibold mb-6">Upload Your Documents</h2>
 
-                <!-- ✅ Added method, action, enctype -->
+              
                 <form method="POST" action="/upload-your-documents" enctype="multipart/form-data" class="space-y-5">
                     @csrf
 
@@ -39,20 +39,33 @@
                         </label>
                         <input type="file" name="id_document" required
                                class="block w-full text-sm text-gray-600 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-700">
+                               @error('id_document')
+                               <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                               @enderror
                     </div>
 
                     <!-- Proof of Address -->
                     <div>
-                        <label class="block text-gray-700 font-medium mb-1">Upload Proof of Address</label>
+                        <label class="block text-gray-700 font-medium mb-1">Upload Proof of Address
+                             <span class="text-xs text-gray-500">(jpg,jpeg,png,pdf)</span>
+                        </label>
                         <input type="file" name="proof_of_address" required
                                class="block w-full text-sm text-gray-600 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-700">
+                               @error('proof_of_address')
+                               <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                               @enderror
                     </div>
 
                     <!-- Work Permit -->
                     <div>
-                        <label class="block text-gray-700 font-medium mb-1">Upload Work Permit (optional)</label>
+                        <label class="block text-gray-700 font-medium mb-1">Upload Work Permit (optional)
+                            <span class="text-xs text-gray-500">(jpg,jpeg,png,pdf)</span>
+                        </label>
                         <input type="file" name="work_permit"
                                class="block w-full text-sm text-gray-600 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-700">
+                               @error('work_permit')
+                               <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                               @enderror
                     </div>
 
                     <!-- Dates -->
@@ -60,12 +73,18 @@
                         <label class="block text-gray-700 font-medium mb-1">Work Permit Issue Date</label>
                         <input type="date" name="issue_date"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                               @error('issue_date')
+                               <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                               @enderror
                     </div>
 
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Work Permit Expiry Date</label>
                         <input type="date" name="expiry_date"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
+                                @error('expiry_date')
+                                <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                                @enderror
                     </div>
 
                     <div class="pt-4">

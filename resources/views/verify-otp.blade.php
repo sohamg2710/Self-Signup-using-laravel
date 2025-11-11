@@ -42,6 +42,9 @@
                         <input type="text" id="otp" name="otp" maxlength="6" required
                                class="w-60 px-4 py-2 border border-gray-300 rounded-md focus:border-blue-700 focus:ring-blue-700"
                                placeholder="000000" />
+                               @error('otp')
+                               <p class="text-red-600 text-sm mt-1">{{$message}}</p>
+                               @enderror
                     </div>
 
                     <!-- ✅ Submit Button Changed from <a> to <button> -->
