@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Document;
 use App\Models\MobileVerification;
+use App\Models\DocumentType;
+use App\Models\IdType;
+use App\Models\Gender;
+use App\Models\Province;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +29,7 @@ class SignupController extends Controller
         // } 
 
         $otp = random_int (100000,999999);
-        $expires = Carbon::now()->addMinutes (10);
+        $expires = Carbon::now()->addMinutes (58);
 
         MobileVerification:: create ([
             'mobile' => $mobile,
@@ -36,7 +40,7 @@ class SignupController extends Controller
         
         session (['signup_mobile' => $mobile]);
 
-        \Log::info("otp for {$mobile}: {$otp}");
+        // \Log::info("otp for {$mobile}: {$otp}");
 
         return redirect ('/verify-otp')-> with('status','otp sent to:' . $mobile);
        
@@ -77,12 +81,15 @@ class SignupController extends Controller
         $userId = session('signup_user_id');
         if(!$userId)
             return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired.']);
+
+        $validId = IdType::pluck('name')->toArray();
+        $validGender = Gender::pluck('name')->toArray();
         $data = $request ->validate([
             'first_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
             'date_of_birth' => 'nullable|date',
-            'gender' => ['nullable', Rule::in(['Male','Female','Other'])],
-            'id_type' => ['nullable', Rule::in(['SA Id','Passport','Asylum document number'])],
+            'gender' => ['nullable', Rule::in($validGender)],
+            'id_type' => ['nullable', Rule::in($validId)],
             'id_number' => 'nullable|string|max:255',
             'country_of_issue' => 'nullable|string|max:255'
         ]);
@@ -93,21 +100,24 @@ class SignupController extends Controller
     }
 
     public function saveAddress(Request $request){
-        $userId = session('signup_user_id');
-        if(!$userId) 
-            return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired.']);
-        $data = $request ->validate([
-            'street' => 'nullable|string|max:255',
-            'suburb' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'postal_code' => 'nullable|string|max:255',
-            'province' => 'nullable|string|max:255'
-        ]);
+    $userId = session('signup_user_id');
+    if(!$userId) 
+        return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired.']);
 
-        User::where('id',$userId)->update($data);
-        return redirect('/contact-and-employment-details');
-       
-    }
+    $validProvince = Province::pluck('id')->toArray();
+
+    $data = $request ->validate([
+        'street' => 'nullable|string|max:255',
+        'suburb' => 'nullable|string|max:255',
+        'city' => 'nullable|string|max:255',
+        'postal_code' => 'nullable|string|max:255',
+        'province' => ['nullable', Rule::in($validProvince)],
+    ]);
+
+    User::where('id',$userId)->update($data);
+    return redirect('/contact-and-employment-details');
+}
+
 
 
     public function saveContact(Request $request){
@@ -147,10 +157,18 @@ class SignupController extends Controller
             $file = $request->file($input);
             $path =$file ->store("user_documents/{$user->id}",'public');
 
+            $typeId = match ($type)
+            {
+                'id_image' => 1,
+                'proof_of_address' => 2,
+                'work_permit' => 3,
+                default => null,
+            };
             Document::create([
                 'user_id' => $user->id,
                 'type' => $type,
-                'path' => $path
+                'path' => $path,
+                'document_type_id' => $typeId
             ]);
         }
        }

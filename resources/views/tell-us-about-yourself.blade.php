@@ -71,9 +71,9 @@
                         <select name="gender" required
                                 class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
                             <option value="">Select</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
+                            @foreach($validGender as $type)
+                            <option value="{{ $type }}">{{ $type }}</option>
+                            @endforeach
                         </select>
                     @error('gender')
         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
@@ -85,9 +85,9 @@
                         <select name="id_type" required
                                 class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
                             <option value="">Select</option>
-                            <option>SA ID</option>
-                            <option>Passport</option>
-                            <option>Asylum/Refugee Document</option>
+                            @foreach($validId as $type)
+                     <option value="{{ $type }}">{{ $type }}</option>
+                              @endforeach
                         </select>
                     @error('id_type')
         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
@@ -112,7 +112,7 @@
                     @error('country_of_issue')
         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
-                    </div>
+                    </div> 
 
 
                     <div class="pt-4">

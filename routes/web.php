@@ -30,5 +30,6 @@ Route::post('/upload-your-documents', [SignupController::class,'uploadDocs']);
 
 Route::get('/signup-success',[UserController::class,'signupSuccess']);
 
+Route::get('/get-provinces/{countryId}', [UserController::class, 'getProvinces']);
 
 
