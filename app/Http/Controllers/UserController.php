@@ -20,7 +20,7 @@ class UserController extends Controller
         return view ('verify-mobile');
    }
 
-   function verifyOtp(Request $request) {
+   function verifyOtp(Request $request) { 
     return view ('verify-otp');
    }
 
@@ -35,7 +35,7 @@ class UserController extends Controller
 
 function whereDoYouLive(Request $request) {
     $countries = Country::all();
-    $provinces = Province::where('country_id', $request->country_id)->get();
+    $provinces = Province::where('country_id', $request->country )->get();  // 
 
     return view('where-do-you-live', compact('countries', 'provinces'));
 }

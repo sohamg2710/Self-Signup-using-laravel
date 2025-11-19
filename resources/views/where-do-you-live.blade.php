@@ -71,10 +71,11 @@
                                <p class="text-red-600 text-sm mt-1">{{$message}}</p>
                                @enderror
                     </div>
-
-                        <div>
-    <label class="block text-gray-700 font-medium mb-1">Country</label>
-    <select name="country_id" id="countrySelect" required
+                                    
+                        <div> 
+                            
+    <label class="block text-gray-700 font-medium mb-1">Country</label>         
+    <select name="country" id="countrySelect" required               
         class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
         <option value="">Select Country</option>
 
@@ -86,7 +87,7 @@
         @endforeach
     </select>
 
-    @error('country_id')
+    @error('country')
     <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
     @enderror
 </div>

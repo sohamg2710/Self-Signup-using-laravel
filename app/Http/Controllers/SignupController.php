@@ -10,6 +10,7 @@ use App\Models\DocumentType;
 use App\Models\IdType;
 use App\Models\Gender;
 use App\Models\Province;
+use App\Models\Country;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
@@ -61,8 +62,10 @@ class SignupController extends Controller
 
             if(!$record) 
             return back()->withErrors(['otp' => 'No OTP found. request a new one']);
-            if(now()->greaterThan($record->expires_at)) 
-                return back()->withErrors(['otp'=>'otp expired.']);
+
+            // if(now()->greaterThan($record->expires_at)) 
+            //     return back()->withErrors(['otp'=>'otp expired.']);
+
             if($record -> otp !== $data['otp']) 
                 return back()->withErrors(['otp'=>'Invalid otp']);
  
@@ -105,19 +108,28 @@ class SignupController extends Controller
         return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired.']);
 
     $validProvince = Province::pluck('id')->toArray();
+    $validCountry = Country::pluck('id')->toArray();
 
     $data = $request ->validate([
         'street' => 'nullable|string|max:255',
         'suburb' => 'nullable|string|max:255',
         'city' => 'nullable|string|max:255',
         'postal_code' => 'nullable|string|max:255',
-        'province' => ['nullable', Rule::in($validProvince)],
+        'country' => ['required' , Rule ::in ($validCountry)], //
+        'province' => ['required' , Rule::in ($validProvince)]
     ]);
+
+    $country = Country::find($data['country']);    //
+    $province = Province::find($data['province']);
+
+    $data['country'] = $country->name;  // 
+    $data['province'] = $province->name;
+
 
     User::where('id',$userId)->update($data);
     return redirect('/contact-and-employment-details');
 }
-
+   
 
 
     public function saveContact(Request $request){
