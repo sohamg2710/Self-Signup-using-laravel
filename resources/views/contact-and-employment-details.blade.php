@@ -31,7 +31,7 @@
             <div class="md:w-1/2 space-y-4">
                 <h2 class="text-lg font-semibold mb-6">Contact & Employment Details</h2>
 
-                <!-- ✅ CHANGED: Added form with POST + route -->
+                <!--  CHANGED: Added form with POST + route -->
                 <form method="POST" action="/contact-and-employment-details" class="space-y-4">
                     @csrf
 
@@ -53,7 +53,7 @@
                                @enderror
                     </div>
 
-                    <!-- ✅ Button changed to submit -->
+                    <!--  Button changed to submit -->
                     <div class="pt-4">
                         <button type="submit"
                             class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">

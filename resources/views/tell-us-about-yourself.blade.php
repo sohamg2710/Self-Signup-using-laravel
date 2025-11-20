@@ -20,7 +20,7 @@
             <div class="flex items-center space-x-2">
                 <div class="w-3 h-3 bg-blue-700 rounded-full"></div>
                 <div class="w-3 h-3 bg-blue-700 rounded-full"></div>
-                <div class="w-3 h-3 bg-blue-700 rounded-full"></div> <!-- ✅ Updated current step -->
+                <div class="w-3 h-3 bg-blue-700 rounded-full"></div> <!--  Updated current step -->
                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
             </div>

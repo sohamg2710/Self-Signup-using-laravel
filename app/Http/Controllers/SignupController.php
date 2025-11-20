@@ -27,10 +27,10 @@ class SignupController extends Controller
 
         // if($last && $last-> created_at -> diffInSeconds (now()) <60){
         //     return back()-> withErrors (['mobile' => 'Please wait before requesting another OTP.']);
-        // } 
+        // }   
 
         $otp = random_int (100000,999999);
-        $expires = Carbon::now()->addMinutes (58);
+        $expires = Carbon::now()->addHours(3);
 
         MobileVerification:: create ([
             'mobile' => $mobile,
@@ -38,7 +38,7 @@ class SignupController extends Controller
             'expires_at' => $expires,
             'used' => false
         ]);
-        
+         
         session (['signup_mobile' => $mobile]);
 
         // \Log::info("otp for {$mobile}: {$otp}");
@@ -58,24 +58,26 @@ class SignupController extends Controller
 
             $record = MobileVerification::
             where('mobile',$mobile)->where('used',false)
-            ->orderBy('created_at','desc')->first();
+            ->orderBy('created_at','desc')->first();  
 
             if(!$record) 
             return back()->withErrors(['otp' => 'No OTP found. request a new one']);
+         
+            if (now() > $record->expires_at) {
+            return back()->withErrors(['otp' => 'OTP expired.']);
+      }
 
-            // if(now()->greaterThan($record->expires_at)) 
-            //     return back()->withErrors(['otp'=>'otp expired.']);
 
             if($record -> otp !== $data['otp']) 
                 return back()->withErrors(['otp'=>'Invalid otp']);
- 
             $record->update(['used'=>true]);
+
             $user= User::firstOrCreate(['mobile'=>$mobile]);
+
 
             session(['signup_user_id'=>$user->id]);
 
             return redirect('/tell-us-about-yourself');
-
 
     }
 
@@ -123,7 +125,7 @@ class SignupController extends Controller
     $province = Province::find($data['province']);
 
     $data['country'] = $country->name;  // 
-    $data['province'] = $province->name;
+    $data['province'] = $province->name; 
 
 
     User::where('id',$userId)->update($data);
@@ -160,7 +162,7 @@ class SignupController extends Controller
 
        $files = [
         'id_image' => 'id',      
-        'proof_of_address' => 'proof_of_address',
+        'proof_of_address' => 'proof_of_address', 
         'work_permit' => 'work_permit'
        ];
 
