@@ -24,7 +24,7 @@
 
             <p class="text-gray-700 text-lg">Thank you for your application</p>
         </div>
-    </section>
+    </section> 
 
     <!-- Footer -->
     <x-user-footer></x-user-footer>

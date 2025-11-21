@@ -41,8 +41,6 @@ class SignupController extends Controller
          
         session (['signup_mobile' => $mobile]);
 
-        // \Log::info("otp for {$mobile}: {$otp}");
-
         return redirect ('/verify-otp')-> with('status','otp sent to:' . $mobile);
        
     }

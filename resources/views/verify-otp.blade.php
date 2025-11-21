@@ -19,7 +19,7 @@
         <div class="flex justify-center mb-10">
             <div class="flex items-center space-x-2">
                 <div class="w-3 h-3 bg-blue-700 rounded-full"></div>
-                <div class="w-3 h-3 bg-blue-700 rounded-full"></div> <!--  Mark current step -->
+                <div class="w-3 h-3 bg-blue-700 rounded-full"></div> 
                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
                 <div class="w-3 h-3 bg-gray-300 rounded-full"></div>
@@ -49,7 +49,7 @@
 
                     <!--  Submit Button Changed from <a> to <button> -->
                     <button type="submit"
-                        class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">
+                        class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-yellow-400 transition">
                         Submit
                         <span class="text-lg">➜</span>
                     </button>

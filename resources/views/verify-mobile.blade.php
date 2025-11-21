@@ -30,11 +30,11 @@
             <div class="md:w-1/2 space-y-6">
                 <h2 class="text-2xl font-bold">Verify Your Mobile Number</h2>
 
-                <!-- 🔹 CHANGED: form action and POST -->
+                <!-- form action and POST -->
                 <form method="POST" action="/verify-mobile"> 
                     @csrf
 
-                    <!-- 🔹 CHANGED: added name="mobile" so Laravel can get it -->
+                    <!-- added name="mobile" so Laravel can get it -->
                     <label class="block text-sm font-medium text-gray-700">Enter your mobile number</label>
                     <input type="text" name="mobile" placeholder="South African Mobile Number" required
                         class="border border-gray-400 rounded-md w-full p-2 mt-2 focus:border-blue-600 focus:ring-blue-600">
@@ -43,18 +43,18 @@
                         We’ll send you a One-Time PIN (OTP) via SMS to verify your number.
                     </p>
 
-                    <!-- 🔹 CHANGED: replaced <a> with <button type="submit"> -->
+                    <!-- replaced <a> with <button type="submit"> -->
                     <div class="mt-6">
                         <button type="submit"
-                            class="inline-flex items-center gap-2 px-6 py-3 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">
+                            class="inline-flex items-center gap-2 px-6 py-3 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-yellow-400 transition">
                             Send OTP
                             <span class="text-xl">➜</span>
                         </button>
                     </div>
 
-                    <!-- 🔹 CHANGED: added error and success message blocks -->
+                    <!--  added error and success message blocks -->
                     @error('mobile')
-                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>78.                                                                                                                                                                             
                     @enderror
 
                     @if(session('status'))

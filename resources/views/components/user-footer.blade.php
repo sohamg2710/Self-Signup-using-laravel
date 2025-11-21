@@ -17,7 +17,7 @@
     <!-- Middle section: Products -->
     <div class="flex flex-col gap-4">
       <h3 class="text-lg font-semibold text-gray-800 border-b-4 border-blue-600 w-fit pb-1">Products</h3>
-      <ul class="space-y-2 text-sm">
+      <ul class="space-y-6 text-sm">
         <li class="font-semibold hover:text-blue-600">IMB Personal Packages</li>
         <li class="font-semibold hover:text-blue-600">Remittance (coming soon)</li>
         <li class="font-semibold hover:text-blue-600">Affordable Distribution</li>

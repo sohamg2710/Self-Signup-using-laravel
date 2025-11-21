@@ -53,7 +53,7 @@
                                class="block w-full text-sm text-gray-600 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-700">
                                @error('proof_of_address')
                                <p class="text-red-600 text-sm mt-1">{{$message}}</p>
-                               @enderror
+                               @enderror 
                     </div>
 
                     <!-- Work Permit -->
@@ -85,7 +85,7 @@
                                 @error('expiry_date')
                                 <p class="text-red-600 text-sm mt-1">{{$message}}</p>
                                 @enderror
-                    </div>
+                    </div> 
 
                     <div class="pt-4">
                         <button type="submit"

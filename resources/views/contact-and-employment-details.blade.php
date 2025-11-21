@@ -31,7 +31,7 @@
             <div class="md:w-1/2 space-y-4">
                 <h2 class="text-lg font-semibold mb-6">Contact & Employment Details</h2>
 
-                <!--  CHANGED: Added form with POST + route -->
+                <!--  Added form with POST + route -->
                 <form method="POST" action="/contact-and-employment-details" class="space-y-4">
                     @csrf
 
@@ -46,7 +46,7 @@
 
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Employer (required)</label>
-                        <input type="text" name="employer" required placeholder="Company Name"
+                        <input type="text" name="employer" Required placeholder="Company Name"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
                                @error('employer')
                                <p class="text-red-600 text-sm mt-1">{{$message}}</p>
@@ -56,7 +56,7 @@
                     <!--  Button changed to submit -->
                     <div class="pt-4">
                         <button type="submit"
-                            class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-lime-400 transition">
+                            class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-yellow-400 transition">
                             Next
                             <span class="text-lg">➜</span>
                         </button>
