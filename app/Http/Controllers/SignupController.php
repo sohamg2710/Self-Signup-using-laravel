@@ -185,11 +185,16 @@ class SignupController extends Controller
                 'document_type_id' => $typeId
             ]);
 
-            
+            $user->update([
+                $input => $type
+            ]);
+
+            if($input === 'work_permit'){
                 $user->update([
                     'work_permit_issue_date'  => $request->work_permit_issue_date,
                     'work_permit_expiry_date' => $request->work_permit_expiry_date
                 ]);
+            }
             
 
 

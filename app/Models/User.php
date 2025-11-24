@@ -15,7 +15,8 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name','last_name','mobile','date_of_birth','gender','id_type',
         'id_number','country_of_issue','email','employer','street','suburb',
-        'city','postal_code','province','is_verified','work_permit_issue_date', 'work_permit_expiry_date'
+        'city','postal_code','province','is_verified','work_permit_issue_date', 'work_permit_expiry_date',
+        'id_image', 'proof_of_address','work_permit'
     ];
 
     public function documents()
