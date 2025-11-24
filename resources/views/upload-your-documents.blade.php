@@ -37,7 +37,7 @@
                             Upload good quality picture of your ID 
                             <span class="text-xs text-gray-500">(jpg, jpeg, png)</span>
                         </label>
-                        <input type="file" name="id_document" required
+                        <input type="file" name="id_image" required
                                class="block w-full text-sm text-gray-600 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-700">
                                @error('id_document')
                                <p class="text-red-600 text-sm mt-1">{{$message}}</p>

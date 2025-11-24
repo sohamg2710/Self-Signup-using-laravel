@@ -159,7 +159,7 @@ class SignupController extends Controller
         ]);
 
        $files = [
-        'id_image' => 'id',      
+        'id_image' => 'id_image',      
         'proof_of_address' => 'proof_of_address', 
         'work_permit' => 'work_permit'
        ];
