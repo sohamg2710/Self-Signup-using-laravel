@@ -155,7 +155,9 @@ class SignupController extends Controller
         $request -> validate([
             'id_image' => 'nullable|file|mimes:jpg,jpeg,png|max:5120',
             'proof_of_address' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
-            'work_permit' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120'
+            'work_permit' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'work_permit_issue_date' => 'nullable|date',
+            'work_permit_expiry_date' => 'nullable|date|after:work_permit_issue_date'
         ]);
 
        $files = [
@@ -182,6 +184,15 @@ class SignupController extends Controller
                 'path' => $path,
                 'document_type_id' => $typeId
             ]);
+
+            
+                $user->update([
+                    'work_permit_issue_date'  => $request->work_permit_issue_date,
+                    'work_permit_expiry_date' => $request->work_permit_expiry_date
+                ]);
+            
+
+
         }
        }
 

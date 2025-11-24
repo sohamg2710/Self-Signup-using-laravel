@@ -33,9 +33,9 @@
             <div class="md:w-1/2 space-y-5 text-center md:text-left">
                 <h2 class="text-2xl font-bold">Enter Your OTP</h2>
 
-                <!--  FORM UPDATED -->
+                
                 <form method="POST" action="/verify-otp" class="space-y-5 max-w-sm mx-auto md:mx-0">
-                    @csrf <!--  Required for Laravel form submission -->
+                    @csrf 
 
                     <div class="flex flex-col items-center md:items-start">
                         <label for="otp" class="block text-gray-700 font-medium mb-1">OTP</label>
@@ -47,7 +47,7 @@
                                @enderror
                     </div>
 
-                    <!--  Submit Button Changed from <a> to <button> -->
+                  <!-- submit button -->
                     <button type="submit"
                         class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-lime-300 border-2 border-blue-700 rounded-full font-semibold text-blue-700 hover:bg-yellow-400 transition">
                         Submit

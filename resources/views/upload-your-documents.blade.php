@@ -71,18 +71,18 @@
                     <!-- Dates -->
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Work Permit Issue Date</label>
-                        <input type="date" name="issue_date"
+                        <input type="date" name="work_permit_issue_date"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
-                               @error('issue_date')
+                               @error('work_permit_issue_date')
                                <p class="text-red-600 text-sm mt-1">{{$message}}</p>
                                @enderror
                     </div>
 
                     <div>
                         <label class="block text-gray-700 font-medium mb-1">Work Permit Expiry Date</label>
-                        <input type="date" name="expiry_date"
+                        <input type="date" name="work_permit_expiry_date"
                                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-700 focus:ring-blue-700">
-                                @error('expiry_date')
+                                @error('work_permit_expiry_date')
                                 <p class="text-red-600 text-sm mt-1">{{$message}}</p>
                                 @enderror
                     </div> 
