@@ -26,7 +26,15 @@
         <div class="flex flex-col md:flex-row items-center justify-center w-full max-w-5xl">
             <div class="md:w-1/2 space-y-5">
                 <h2 class="text-lg font-semibold mb-6">Upload Your Documents</h2>
+                    @if (session('status'))
+    <div class="bg-green-100 text-green-800 p-3 rounded mb-3">
+        {{ session('status') }}
+    </div>
 
+    <script>
+        console.log("{{ session('status') }}");
+    </script>
+@endif
               
                 <form method="POST" action="/upload-your-documents" enctype="multipart/form-data" class="space-y-5">
                     @csrf

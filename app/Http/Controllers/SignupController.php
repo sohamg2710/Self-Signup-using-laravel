@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Storage;
 class SignupController extends Controller
 {
     public function sendOtp (Request $request){
+        try {
         $data = $request-> validate([
             'mobile' => ['required','string','max:50']
         ]);
@@ -43,11 +44,21 @@ class SignupController extends Controller
 
         return redirect ('/verify-otp')-> with('status','otp sent to:' . $mobile);
        
+    }catch (\Throwable $e) {
+
+     
+        \Log::error("sendOtp error: " . $e->getMessage());
+
+
+        return back()->withErrors([
+            'server' => 'Something went wrong. Please try again later.'
+        ]);
     }
+}
 
 
     public function verifyOtp(Request $request){
-
+         try {
         $data = $request -> validate([
             'otp' => 'required | digits:6']);
 
@@ -77,10 +88,20 @@ class SignupController extends Controller
 
             return redirect('/tell-us-about-yourself');
 
+    } catch (\Throwable $e) {
+ 
+        \Log::error("verifyOtp error: " . $e->getMessage());
+
+        
+        return back()->withErrors([
+            'server' => 'Something went wrong. Please try again later.'
+        ]);
     }
+}
 
 
     public function savePersonal(Request $request){
+        try {
         $userId = session('signup_user_id');
         if(!$userId)
             return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired.']);
@@ -90,19 +111,30 @@ class SignupController extends Controller
         $data = $request ->validate([
             'first_name' => 'required|string|max:100',
             'last_name' => 'required|string|max:100',
-            'date_of_birth' => 'nullable|date',
-            'gender' => ['nullable', Rule::in($validGender)],
-            'id_type' => ['nullable', Rule::in($validId)],
-            'id_number' => 'nullable|string|max:255',
-            'country_of_issue' => 'nullable|string|max:255'
+            'date_of_birth' => 'required|date',
+            'gender' => ['required', Rule::in($validGender)],
+            'id_type' => ['required', Rule::in($validId)],
+            'id_number' => 'required|string|max:255',
+            'country_of_issue' => 'required|string|max:255'
         ]);
 
         User::where('id',$userId)->update($data);
         return redirect('/where-do-you-live');
 
+    }catch (\Throwable $e) {
+
+
+        \Log::error("savePersonal error: " . $e->getMessage());
+
+     
+        return back()->withErrors([
+            'server' => 'Something went wrong while saving your details. Please try again.'
+        ]);
     }
+}
 
     public function saveAddress(Request $request){
+         try {
     $userId = session('signup_user_id');
     if(!$userId) 
         return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired.']);
@@ -128,11 +160,22 @@ class SignupController extends Controller
 
     User::where('id',$userId)->update($data);
     return redirect('/contact-and-employment-details');
+}catch (\Throwable $e) {
+
+ 
+        \Log::error("saveAddress error: " . $e->getMessage());
+
+   
+        return back()->withErrors([
+            'server' => 'Something went wrong while saving your address. Please try again.'
+        ]);
+    }
 }
    
-
+    
 
     public function saveContact(Request $request){
+         try {
         $userId = session('signup_user_id');
         if(!$userId)
         return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired.']);
@@ -143,14 +186,26 @@ class SignupController extends Controller
 
         User:: where('id',$userId)->update($data);
         return redirect('/upload-your-documents');
+    }catch (\Throwable $e) {
+
+     
+        \Log::error("saveContact error: " . $e->getMessage());
+
+        return back()->withErrors([
+            'server' => 'Something went wrong while saving your contact details. Please try again.'
+        ]);
     }
+}
 
 
     public function uploadDocs(Request $request){
+        try{
         $userId = session('signup_user_id');
 
         if(!$userId)
         return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired.']);
+
+        
         $user = User::findOrFail($userId);
         $request -> validate([
             'id_image' => 'nullable|file|mimes:jpg,jpeg,png|max:5120',
@@ -206,7 +261,17 @@ class SignupController extends Controller
        return redirect ('/signup-success');
 
 
-        }
+        }catch (\Throwable $e) {
+
+     
+        \Log::error("uploadDocs error: " . $e->getMessage());
+
+     
+        return back()->withErrors([
+            'server' => 'Something went wrong while uploading your documents. Please try again.'
+        ]);
+    }
+}
 }
 
  

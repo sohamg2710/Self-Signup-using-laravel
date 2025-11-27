@@ -31,7 +31,15 @@
             <!-- Left Section -->
             <div class="md:w-1/2 space-y-4">
                 <h2 class="text-lg font-semibold mb-6">Where Do You Live?</h2>
+                @if (session('status'))
+    <div class="bg-green-100 text-green-800 p-3 rounded mb-3">
+        {{ session('status') }}
+    </div>
 
+    <script>
+        console.log("{{ session('status') }}");
+    </script>
+@endif
              
                 <form method="POST" action="/where-do-you-live" class="space-y-4">
                     @csrf

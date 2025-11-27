@@ -54,7 +54,7 @@ public function getProvinces($countryId)
    }
 
    function signupSuccess(Request $request) {
-    return view ('signup-success');
+    return view ('signup-success'); 
    }
 }
 

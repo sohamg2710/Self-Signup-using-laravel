@@ -31,9 +31,22 @@
             
             <!-- Left Section -->
             <div class="md:w-1/2 space-y-5 text-center md:text-left">
+              
+
+
+@if (session('status'))
+    <div class="bg-green-100 text-green-800 p-3 rounded mb-3">
+        {{ session('status') }}
+    </div>
+
+    <script>
+        console.log("{{ session('status') }}");
+    </script>
+@endif
+
                 <h2 class="text-2xl font-bold">Enter Your OTP</h2>
 
-                
+
                 <form method="POST" action="/verify-otp" class="space-y-5 max-w-sm mx-auto md:mx-0">
                     @csrf 
 
@@ -54,7 +67,7 @@
                         <span class="text-lg">➜</span>
                     </button>
 
-                    <!--  Error message -->
+                    <!--  Error message --> 
                     @if(session('error'))
                         <p class="text-red-600 text-sm mt-2">{{ session('error') }}</p>
                     @endif

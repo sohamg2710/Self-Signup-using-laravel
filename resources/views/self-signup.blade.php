@@ -17,7 +17,7 @@
         <div class="flex flex-col md:flex-row items-center justify-between w-full max-w-6xl">
             <!-- Left Content -->
             <div class="md:w-1/2 space-y-6">
-                <h2 class="text-3xl font-extrabold">Welcome</h2>
+                  <h2 class="text-3xl font-extrabold">Welcome</h2>
                 <p class="text-lg font-medium">Open your account in a few easy steps</p>
 
                 <h3 class="text-xl font-semibold mt-6">Here’s what you’ll need before you start:</h3>
