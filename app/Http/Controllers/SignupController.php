@@ -63,7 +63,7 @@ class SignupController extends Controller
             'otp' => 'required | digits:6']);
 
             $mobile = session('signup_mobile');
-            if(!$mobile) return redirect('/verify-otp')->withErrors(['session'=>'Session Expired']);
+            if(!$mobile) return redirect('/verify-mobile')->withErrors(['session'=>'Session Expired']);
 
             $record = MobileVerification::
             where('mobile',$mobile)->where('used',false)
@@ -143,10 +143,10 @@ class SignupController extends Controller
     $validCountry = Country::pluck('id')->toArray();
 
     $data = $request ->validate([
-        'street' => 'nullable|string|max:255',
-        'suburb' => 'nullable|string|max:255',
-        'city' => 'nullable|string|max:255',
-        'postal_code' => 'nullable|string|max:255',
+        'street' => 'required|string|max:255',
+        'suburb' => 'required|string|max:255',
+        'city' => 'required|string|max:255',
+        'postal_code' => 'required|string|max:255',
         'country' => ['required' , Rule ::in ($validCountry)], //
         'province' => ['required' , Rule::in ($validProvince)]
     ]);
@@ -250,9 +250,6 @@ class SignupController extends Controller
                     'work_permit_expiry_date' => $request->work_permit_expiry_date
                 ]);
             }
-            
-
-
         }
        }
 
